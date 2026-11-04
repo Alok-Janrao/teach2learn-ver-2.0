@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "User": {
+      "path": "users/{userId}",
+      "fields": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "avatar": { "type": "string" },
+        "role": { "type": "string" },
+        "xp": { "type": "number" },
+        "rank": { "type": "string" },
+        "isMentor": { "type": "boolean" },
+        "mentorSubjects": { "type": "array" },
+        "createdAt": { "type": "timestamp" }
+      }
+    },
+    "ShortVideo": {
+      "path": "shortVideos/{videoId}",
+      "fields": {
+        "videoId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "subject": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "teacherName": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "thumbnailUrl": { "type": "string" },
+        "createdAt": { "type": "number" },
+        "views": { "type": "number" },
+        "likes": { "type": "number" },
+        "status": { "type": "string" }
+      }
+    },
+    "LiveClass": {
+      "path": "liveClasses/{classId}",
+      "fields": {
+        "classId": { "type": "string" },
+        "hostId": { "type": "string" },
+        "hostName": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "description": { "type": "string" },
+        "scheduledAt": { "type": "string" },
+        "status": { "type": "string" },
+        "roomId": { "type": "string" },
+        "createdAt": { "type": "number" },
+        "participantCount": { "type": "number" }
+      }
+    },
+    "LiveParticipant": {
+      "path": "liveClasses/{classId}/participants/{participantId}",
+      "fields": {
+        "participantId": { "type": "string" },
+        "classId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "role": { "type": "string" },
+        "isMuted": { "type": "boolean" },
+        "isVideoOn": { "type": "boolean" },
+        "isHandRaised": { "type": "boolean" },
+        "joinedAt": { "type": "number" }
+      }
+    },
+    "LiveClassMessage": {
+      "path": "liveClasses/{classId}/messages/{messageId}",
+      "fields": {
+        "id": { "type": "string" },
+        "classId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "message": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "isTeacher": { "type": "boolean" }
+      }
+    }
+  }
+}

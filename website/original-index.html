@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download TEACH2LEARN | Peer-to-Peer Engineering Learning App</title>
+  <meta name="description" content="Download the official TEACH2LEARN Android APK. Peer-to-peer engineering mentorship, hierarchical notes, 60-second micro reels, live classrooms, and gamified learning." />
+  
+  <!-- Favicon / App Icon -->
+  <link rel="icon" type="image/jpeg" href="app-icon.jpg" />
+  <link rel="apple-touch-icon" href="app-icon.jpg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5', // Primary
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+            accent: {
+              violet: '#7c3aed',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              sky: '#0284c7',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- QRCode.js for generating dynamic QR Code -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #d97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-glow {
+      background: radial-gradient(circle at 50% 30%, rgba(99, 102, 241, 0.15) 0%, rgba(124, 58, 237, 0.08) 45%, transparent 75%);
+    }
+    .card-glass {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .phone-shadow {
+      box-shadow: 0 25px 60px -15px rgba(79, 70, 229, 0.25), 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+    }
+    @keyframes pulseSlow {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+    .animate-pulse-slow {
+      animation: pulseSlow 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-500 selection:text-white relative min-h-screen">
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700">
+    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+    <span id="toast-text" class="text-sm font-medium">Download starting...</span>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 rounded-xl overflow-hidden shadow-md shadow-brand-500/20 ring-2 ring-brand-500/20 group-hover:scale-105 transition-transform duration-200">
+          <img src="app-icon.jpg" alt="TEACH2LEARN Logo" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%234F46E5\'><rect width=\'100\' height=\'100\' rx=\'20\'/><text x=\'50\' y=\'65\' font-size=\'45\' font-weight=\'bold\' fill=\'white\' text-anchor=\'middle\'>T2L</text></svg>'" />
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-display font-extrabold text-xl tracking-tight text-slate-900">TEACH<span class="text-brand-600">2</span>LEARN</span>
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-brand-700 rounded-full border border-brand-200">v1.2.0</span>
+          </div>
+          <p class="text-[11px] text-slate-500 font-medium">Peer-to-Peer Engineering Mentorship</p>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+        <a href="#features" class="hover:text-brand-600 transition-colors">Features</a>
+        <a href="#preview" class="hover:text-brand-600 transition-colors">App Preview</a>
+        <a href="#how-to-install" class="hover:text-brand-600 transition-colors">Installation Guide</a>
+        <a href="#specifications" class="hover:text-brand-600 transition-colors">Specifications</a>
+        <a href="#faq" class="hover:text-brand-600 transition-colors">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="openQrModal()" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all">
+          <i data-lucide="qr-code" class="w-4 h-4 text-slate-600"></i>
+          <span>Scan to Phone</span>
+        </button>
+        <a href="teach2learn.apk" download="teach2learn.apk" onclick="trackDownload()" class="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-brand-600 to-accent-violet hover:from-brand-700 hover:to-accent-violet/90 rounded-xl shadow-md shadow-brand-600/25 hover:shadow-lg hover:shadow-brand-600/35 transition-all">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Download APK</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden hero-glow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200/80 text-brand-700 text-xs font-semibold shadow-sm">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
+            </span>
+            <span>Official Android APK Release • v1.2.0 Stable</span>
+          </div>
+
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+            Learn by Teaching.<br />
+            <span class="gradient-text">Master by Sharing.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            The collaborative Android learning hub for engineering students. Connect with peer mentors, access hierarchical study notes, watch 60-second micro-learning reels, join interactive live classes, and master tricky programming concepts.
+          </p>
+
+          <!-- CTAs -->
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <a href="teach2learn.apk" download="teach2learn.apk" onclick="trackDownload()" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-4 text-base font-bold text-white bg-gradient-to-r from-brand-600 via-brand-700 to-accent-violet hover:brightness-110 rounded-2xl shadow-xl shadow-brand-600/30 hover:shadow-brand-600/40 transform hover:-translate-y-0.5 transition-all">
+              <i data-lucide="download" class="w-5 h-5"></i>
+              <div class="text-left leading-tight">
+                <div>Download Official APK</div>
+                <div class="text-[11px] font-normal text-white/80">v1.2.0 • 23 MB • Android 8.0+</div>
+              </div>
+            </a>
+
+            <button onclick="openQrModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-4 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl shadow-sm hover:shadow transition-all">
+              <i data-lucide="smartphone" class="w-4 h-4 text-brand-600"></i>
+              <span>Install via QR Code</span>
+            </button>
+          </div>
+
+          <!-- Feature Trust Badges -->
+          <div class="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-200/80 text-left">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-slate-800">100% Verified</div>
+                <div class="text-[10px] text-slate-500">Virus & Malware Safe</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-600 shrink-0">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-slate-800">Clean 0% Start</div>
+                <div class="text-[10px] text-slate-500">True fresh profiles</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-accent-amber/10 border border-accent-amber/30 flex items-center justify-center text-accent-amber shrink-0">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-slate-800">Zero Adverts</div>
+                <div class="text-[10px] text-slate-500">Pure student focus</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600 shrink-0">
+                <i data-lucide="cpu" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-slate-800">Jetpack Compose</div>
+                <div class="text-[10px] text-slate-500">Modern 120 FPS UI</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Phone Device Showcase -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-[320px] sm:max-w-[340px]">
+            
+            <!-- Ambient Glow Behind Phone -->
+            <div class="absolute -inset-4 bg-gradient-to-tr from-brand-500/25 to-accent-violet/25 rounded-[45px] blur-2xl -z-10 animate-pulse-slow"></div>
+
+            <!-- Phone Frame -->
+            <div class="relative bg-slate-900 rounded-[42px] p-3 ring-1 ring-slate-700/60 phone-shadow">
+              <!-- Notch / Dynamic Island Pill -->
+              <div class="absolute top-5 left-1/2 -translate-x-1/2 w-28 h-4 bg-slate-950 rounded-full z-20 flex items-center justify-center">
+                <div class="w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-800 mr-2"></div>
+                <div class="w-2 h-2 rounded-full bg-brand-500/50"></div>
+              </div>
+
+              <!-- Phone Screen Content -->
+              <div class="relative bg-slate-50 rounded-[34px] overflow-hidden border border-slate-200 pt-7 pb-4 px-3.5 min-h-[580px] flex flex-col justify-between select-none">
+                
+                <!-- Status Bar -->
+                <div class="flex items-center justify-between text-[11px] font-semibold text-slate-700 px-2 pb-2 border-b border-slate-200">
+                  <span>9:41</span>
+                  <div class="flex items-center gap-1.5 text-slate-500">
+                    <i data-lucide="wifi" class="w-3 h-3"></i>
+                    <i data-lucide="battery-charging" class="w-3.5 h-3.5 text-emerald-600"></i>
+                  </div>
+                </div>
+
+                <!-- Mock App Content: Teach2Learn Home Header -->
+                <div class="mt-3 space-y-3">
+                  <div class="flex items-center justify-between bg-white p-2.5 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-xs">AJ</div>
+                      <div>
+                        <div class="text-xs font-bold text-slate-900 leading-tight">Welcome, Alok!</div>
+                        <div class="text-[10px] text-brand-600 font-medium flex items-center gap-1">
+                          <span>Beginner • Level 1</span>
+                          <span>⚡ 0 XP</span>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="text-xs px-2 py-1 rounded-lg bg-brand-50 text-brand-700 font-bold border border-brand-100">B.Tech CSE</span>
+                  </div>
+
+                  <!-- Quick Action Cards in Phone -->
+                  <div class="grid grid-cols-2 gap-2">
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-2.5 rounded-xl border border-indigo-100">
+                      <div class="text-base mb-1">📚</div>
+                      <div class="text-[11px] font-bold text-slate-800 leading-tight">Academic Notes</div>
+                      <div class="text-[9px] text-slate-500">C, Python & DSA</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-2.5 rounded-xl border border-amber-100">
+                      <div class="text-base mb-1">🔴</div>
+                      <div class="text-[11px] font-bold text-slate-800 leading-tight">Live Classes</div>
+                      <div class="text-[9px] text-slate-500">Early Notifications</div>
+                    </div>
+                  </div>
+
+                  <!-- Micro-Reel Card in Phone -->
+                  <div class="bg-slate-900 text-white p-3 rounded-2xl relative overflow-hidden shadow-sm">
+                    <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-brand-500/20 rounded-full blur-lg"></div>
+                    <div class="flex items-center justify-between mb-1.5">
+                      <span class="text-[9px] uppercase tracking-wider font-bold text-brand-400">60s Micro-Reel</span>
+                      <span class="text-[9px] px-1.5 py-0.5 rounded bg-red-500/80 text-white font-bold">REEL</span>
+                    </div>
+                    <div class="text-xs font-bold leading-tight text-white mb-1">Double Pointers (**ptr) Demystified</div>
+                    <p class="text-[10px] text-slate-300 line-clamp-2">Visualizing pointer dereferencing and memory addresses in 60 seconds.</p>
+                    <div class="mt-2 flex items-center justify-between text-[9px] text-slate-400">
+                      <span>👤 Sneha Rao (Mentor)</span>
+                      <span>❤️ 670 Likes</span>
+                    </div>
+                  </div>
+
+                  <!-- Quiz Preview Card in Phone -->
+                  <div class="bg-white p-2.5 rounded-2xl border border-slate-200/80 shadow-xs">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[10px] font-bold text-slate-800">C Memory Layout Quiz</span>
+                      <span class="text-[9px] font-bold text-accent-emerald bg-emerald-50 px-1.5 py-0.5 rounded">+45 XP</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-brand-600 h-full w-2/3 rounded-full"></div>
+                    </div>
+                    <div class="flex justify-between text-[9px] text-slate-500 mt-1">
+                      <span>Progress</span>
+                      <span>67% Complete</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bottom Mock Navigation Bar -->
+                <div class="mt-4 pt-2 border-t border-slate-200 flex justify-around items-center text-[10px] text-slate-400">
+                  <div class="flex flex-col items-center text-brand-600 font-bold">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    <span>Home</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                    <span>Learn</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    <span>Teach</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <i data-lucide="trophy" class="w-4 h-4"></i>
+                    <span>Rank</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                    <span>Profile</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Floating Badge Left -->
+            <div class="absolute -left-6 bottom-16 bg-white/95 backdrop-blur-md p-3 rounded-2xl shadow-xl border border-slate-200 flex items-center gap-3 hidden sm:flex">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-accent-violet flex items-center justify-center text-white shadow-md">
+                <i data-lucide="badge-check" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-slate-900">Peer Certified</div>
+                <div class="text-[10px] text-slate-500">Verified Mentor Badges</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Grid -->
+  <section id="features" class="py-20 bg-white border-y border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-extrabold uppercase tracking-widest text-brand-600 mb-2">Core Engineering Features</h2>
+        <h3 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Everything You Need to Ace Your Courses
+        </h3>
+        <p class="mt-3 text-base text-slate-600">
+          Built specifically for engineering undergraduates. Whether you are revising for midterms, learning data structures, or helping fellow students solve tricky pointer bugs.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Feature 1 -->
+        <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-brand-100/80 text-brand-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="folder-tree" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 mb-2">Hierarchical Study Notes</h4>
+          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+            Structured strictly by <strong>Level &rarr; Department &rarr; Subject &rarr; Topic</strong>. Instant access to high-yield formula sheets, exam cheatsheets, and offline PDF downloads.
+          </p>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-brand-600">
+            Formula Sheets & Bullet Summaries &rarr;
+          </span>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-purple-100/80 text-purple-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="film" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 mb-2">60s Micro-Learning Reels</h4>
+          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+            Bite-sized vertical concept videos for rapid revision. Includes <strong>in-reel interactive verification quizzes</strong> that test your comprehension on the spot.
+          </p>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-purple-600">
+            Rapid Concept Retention &rarr;
+          </span>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-amber-100/80 text-amber-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="radio" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 mb-2">Live Classes & Early Reminders</h4>
+          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+            Join peer mentor sessions with interactive raise-hand audio, live doubt chat, and <strong>customizable early alerts (5 to 60 mins)</strong> so you never miss a review.
+          </p>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-amber-600">
+            Zero Missed Sessions &rarr;
+          </span>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100/80 text-emerald-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 mb-2">Grandmaster Quiz Challenges</h4>
+          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+            Go beyond simple recall. Test yourself with compiler struct padding, AVL balance rotations, and multi-pointer arithmetic with immediate conceptual breakdowns.
+          </p>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600">
+            Earn Bonus XP & Ranks &rarr;
+          </span>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-sky-100/80 text-sky-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="video" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 mb-2">HD Chaptered Lectures</h4>
+          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+            Deep-dive courses with speed controls (1.0x to 2.0x), automatic watch progress sync, key takeaway cards, and direct links to ask doubts or take topic tests.
+          </p>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-sky-600">
+            Seamless Resume Playback &rarr;
+          </span>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-rose-100/80 text-rose-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="user-check" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 mb-2">Authentic Profile Progression</h4>
+          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+            New accounts initialize at a clean <strong>0% progress, 0 XP, Beginner rank</strong>. Your stats and badges reflect <em>your</em> real achievements, not mock numbers.
+          </p>
+          <span class="inline-flex items-center gap-1 text-xs font-bold text-rose-600">
+            Transparent Skill Tiers &rarr;
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive App Preview Tabs -->
+  <section id="preview" class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-xs font-extrabold uppercase tracking-widest text-brand-600 mb-2">Interactive Preview</h2>
+        <h3 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Explore the App Workflow
+        </h3>
+        <p class="mt-2 text-sm sm:text-base text-slate-600">Click the tabs below to preview the core interfaces inside TEACH2LEARN.</p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
+        <button onclick="switchTab('tab-notes')" id="btn-tab-notes" class="tab-btn active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-brand-600 text-white shadow-md shadow-brand-600/20">
+          Academic Notes
+        </button>
+        <button onclick="switchTab('tab-reels')" id="btn-tab-reels" class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+          Micro Reels & Quizzes
+        </button>
+        <button onclick="switchTab('tab-live')" id="btn-tab-live" class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+          Live Classrooms
+        </button>
+        <button onclick="switchTab('tab-profile')" id="btn-tab-profile" class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+          Profile & Ranks
+        </button>
+      </div>
+
+      <!-- Tab Contents -->
+      <div class="max-w-4xl mx-auto">
+        
+        <!-- Tab 1: Notes -->
+        <div id="tab-notes" class="tab-content block bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl shadow-slate-200/50">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+            <div>
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 text-xs font-bold mb-2">
+                <span>B.Tech &bull; CSE &bull; C Programming</span>
+              </div>
+              <h4 class="text-xl font-extrabold text-slate-900">Pointer Arithmetic & Dynamic Memory (malloc/free)</h4>
+              <p class="text-xs text-slate-500 mt-1">High-yield revision note &bull; By Rahul Sharma (Mentor) &bull; 8 min read</p>
+            </div>
+            <span class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold flex items-center gap-1.5">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i> Exam Verified
+            </span>
+          </div>
+
+          <div class="mt-6 space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <div class="p-4 rounded-xl bg-slate-900 text-emerald-400 font-mono text-xs overflow-x-auto">
+              <code>int *arr = (int *)malloc(5 * sizeof(int));<br />// *(arr + i) is syntactically equivalent to arr[i]</code>
+            </div>
+            <p>
+              <strong>Key Formula / Principle:</strong> Pointer arithmetic scales automatically by <code>sizeof(T)</code>. Incrementing an <code>int*</code> by 1 increases the actual physical memory byte address by 4 on 32/64-bit architectures.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="font-bold text-slate-800 text-xs mb-1">📌 Trap to Avoid</div>
+                <div class="text-xs text-slate-500">Dangling pointers: always set <code>ptr = NULL;</code> immediately after calling <code>free(ptr);</code></div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-brand-50 border border-brand-100">
+                <div class="font-bold text-brand-800 text-xs mb-1">⚡ Exam High Yield</div>
+                <div class="text-xs text-brand-600">Memory leaks occur on the heap when dynamically allocated blocks lose their pointer reference.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Reels -->
+        <div id="tab-reels" class="tab-content hidden bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl shadow-slate-200/50">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div>
+              <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">60-Second Concept Reel</span>
+              <h4 class="text-xl font-extrabold text-slate-900 mt-1">AVL Tree Balance Factors & Double Rotations</h4>
+            </div>
+            <span class="px-2.5 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-lg flex items-center gap-1">
+              <i data-lucide="play" class="w-3 h-3 fill-current"></i> 0:48 / 1:00
+            </span>
+          </div>
+
+          <div class="mt-5 p-5 rounded-2xl bg-slate-900 text-white">
+            <div class="text-xs text-brand-300 font-semibold mb-2">IN-REEL INTERACTIVE QUIZ</div>
+            <div class="text-sm font-bold mb-3">When does an AVL tree require a Left-Right (LR) Double Rotation?</div>
+            <div class="space-y-2">
+              <div class="p-3 rounded-xl bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:bg-slate-700 cursor-pointer transition">
+                A) When a node is inserted into the left subtree of the left child.
+              </div>
+              <div class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-500 text-xs text-emerald-300 font-semibold flex items-center justify-between">
+                <span>B) When inserted into the right subtree of the left child (BF = +2, child BF = -1).</span>
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:bg-slate-700 cursor-pointer transition">
+                C) When both subtrees have equal height.
+              </div>
+            </div>
+            <div class="mt-3 text-[11px] text-emerald-400 flex items-center gap-1.5">
+              <i data-lucide="award" class="w-3.5 h-3.5"></i>
+              <span>Correct! +25 XP awarded to your learning profile.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Live Classrooms -->
+        <div id="tab-live" class="tab-content hidden bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl shadow-slate-200/50">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
+              <div>
+                <h4 class="text-lg font-extrabold text-slate-900">Operating Systems: Deadlock Avoidance (Banker's Algorithm)</h4>
+                <p class="text-xs text-slate-500">Live Mentor Session &bull; 42 Students Attending</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 bg-red-50 text-red-600 border border-red-200 text-xs font-bold rounded-xl">
+              LIVE NOW
+            </span>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 sm:col-span-2">
+              <div class="text-xs font-bold text-slate-800 mb-2">Active Doubt Queue (Prioritized)</div>
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                  <span class="font-medium text-slate-700">"How does Need Matrix calculation handle multiple resource instances?"</span>
+                  <span class="text-[10px] text-brand-600 font-bold">Answered Live</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                  <span class="font-medium text-slate-700">"Is Safe State always deadlock-free?"</span>
+                  <span class="text-[10px] text-amber-600 font-bold">Next in Line</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-brand-50 border border-brand-100 flex flex-col justify-between">
+              <div>
+                <div class="text-xs font-bold text-brand-800 mb-1">Early Alert System</div>
+                <div class="text-[11px] text-brand-600">You can set customizable reminders for upcoming sessions: 5m, 15m, 30m, or 1h before start.</div>
+              </div>
+              <button class="mt-4 w-full py-2 bg-brand-600 text-white text-xs font-bold rounded-xl shadow-sm hover:bg-brand-700">
+                Raise Hand &bull; Ask Question
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Profile & Ranks -->
+        <div id="tab-profile" class="tab-content hidden bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl shadow-slate-200/50">
+          <div class="flex items-center justify-between pb-5 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-accent-violet text-white font-extrabold text-lg flex items-center justify-center">
+                AJ
+              </div>
+              <div>
+                <h4 class="text-lg font-extrabold text-slate-900">Alok Janrao</h4>
+                <p class="text-xs text-slate-500">Government College of Engineering &bull; CSE 1st Year</p>
+              </div>
+            </div>
+            <span class="px-3 py-1.5 rounded-xl bg-brand-50 text-brand-700 border border-brand-200 text-xs font-extrabold">
+              Beginner Tier
+            </span>
+          </div>
+
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="text-[11px] text-slate-500">Profile Setup</div>
+              <div class="text-lg font-extrabold text-brand-600 mt-0.5">0%</div>
+              <div class="text-[10px] text-slate-400">Clean new-user state</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="text-[11px] text-slate-500">Total Experience</div>
+              <div class="text-lg font-extrabold text-slate-900 mt-0.5">0 XP</div>
+              <div class="text-[10px] text-slate-400">Next tier at 500 XP</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="text-[11px] text-slate-500">Lectures Completed</div>
+              <div class="text-lg font-extrabold text-slate-900 mt-0.5">0</div>
+              <div class="text-[10px] text-slate-400">Watch to gain +10 XP</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <div class="text-[11px] text-slate-500">Quizzes Solved</div>
+              <div class="text-lg font-extrabold text-slate-900 mt-0.5">0</div>
+              <div class="text-[10px] text-slate-400">Solve for bonus XP</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Step-by-Step Installation Guide -->
+  <section id="how-to-install" class="py-20 bg-white border-y border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-xs font-extrabold uppercase tracking-widest text-brand-600 mb-2">Android Sideload Guide</h2>
+        <h3 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          How to Install the APK in 4 Easy Steps
+        </h3>
+        <p class="mt-3 text-base text-slate-600">
+          Installing via direct APK is quick and safe. Follow these simple steps on any Android phone running Android 8.0 or higher.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Step 1 -->
+        <div class="relative p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+          <div class="w-10 h-10 rounded-xl bg-brand-600 text-white font-extrabold text-base flex items-center justify-center mb-4 shadow-md shadow-brand-600/20">
+            1
+          </div>
+          <div class="flex-1">
+            <h4 class="text-base font-bold text-slate-900 mb-2">Download APK</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Tap the <strong>Download APK</strong> button on this page or scan the QR code using your mobile camera.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200/80 text-[11px] text-slate-500 font-medium">
+            File name: <code>teach2learn.apk</code> (23 MB)
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+          <div class="w-10 h-10 rounded-xl bg-brand-600 text-white font-extrabold text-base flex items-center justify-center mb-4 shadow-md shadow-brand-600/20">
+            2
+          </div>
+          <div class="flex-1">
+            <h4 class="text-base font-bold text-slate-900 mb-2">Allow Unknown Apps</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              If Android asks <em>"File might be harmful"</em>, tap <strong>Download anyway</strong>. In Chrome/browser, tap <strong>Settings &rarr; Allow from this source</strong>.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200/80 text-[11px] text-slate-500 font-medium">
+            Standard Android security prompt for direct APKs
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+          <div class="w-10 h-10 rounded-xl bg-brand-600 text-white font-extrabold text-base flex items-center justify-center mb-4 shadow-md shadow-brand-600/20">
+            3
+          </div>
+          <div class="flex-1">
+            <h4 class="text-base font-bold text-slate-900 mb-2">Tap Install</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Open the downloaded file from your browser downloads or Files app notification and tap <strong>Install</strong>.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200/80 text-[11px] text-slate-500 font-medium">
+            Installation completes in ~5 seconds
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="relative p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-extrabold text-base flex items-center justify-center mb-4 shadow-md shadow-emerald-600/20">
+            4
+          </div>
+          <div class="flex-1">
+            <h4 class="text-base font-bold text-slate-900 mb-2">Launch & Learn!</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Open TEACH2LEARN, register your account (starts clean at 0% XP), and instantly access your notes, reels, and peer mentor hub!
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200/80 text-[11px] text-emerald-600 font-bold">
+            Ready to study & collaborate 🚀
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Technical Specifications -->
+  <section id="specifications" class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-4xl mx-auto bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-lg">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-slate-200">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-brand-600">Release Details</span>
+            <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Package Specifications</h3>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="teach2learn.apk" download="teach2learn.apk" onclick="trackDownload()" class="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-xl transition-all shadow-md shadow-brand-600/20">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Download APK</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-8">
+          
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Application Name</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">TEACH2LEARN</div>
+          </div>
+
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Package Version</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">v1.2.0 (Build 2)</div>
+          </div>
+
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">File Size</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">23.2 MB (Compressed)</div>
+          </div>
+
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Minimum Android Version</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">Android 8.0 Oreo (API 26)</div>
+          </div>
+
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Target Android Version</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">Android 14 / 15 (API 34/35)</div>
+          </div>
+
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Architecture / Framework</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">Kotlin &bull; Jetpack Compose M3</div>
+          </div>
+
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Application ID</div>
+            <div class="text-sm font-mono text-xs text-slate-800 mt-1">com.aistudio.teach2learn.v7x2</div>
+          </div>
+
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Signature / Security</div>
+            <div class="text-sm font-bold text-emerald-600 mt-1 flex items-center gap-1">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> V2 / V3 Signed
+            </div>
+          </div>
+
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Permissions Required</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">Internet &bull; Notifications</div>
+          </div>
+
+        </div>
+
+        <!-- Release Notes Box -->
+        <div class="mt-8 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">What's New in v1.2.0</div>
+          <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+            <li><strong>Fixed Profile Initialization:</strong> Fresh signups start at true 0% progress, 0 XP, and Beginner rank without legacy dummy values.</li>
+            <li><strong>Streamlined Authentication:</strong> Direct home interface redirect upon successful login and registration.</li>
+            <li><strong>Hierarchical Academic Notes:</strong> Level &rarr; Department &rarr; Subject &rarr; Topic catalog with formula cheatsheets.</li>
+            <li><strong>60s Micro-Reels & In-Reel Quizzes:</strong> Instant verification questions directly embedded in video reels.</li>
+            <li><strong>Live Classroom Early Alerts:</strong> Selectable lead-time reminders (5 to 60 mins) so you never miss a lecture.</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-14">
+        <h2 class="text-xs font-extrabold uppercase tracking-widest text-brand-600 mb-2">Common Questions</h2>
+        <h3 class="font-display text-3xl font-extrabold text-slate-900 tracking-tight">
+          Frequently Asked Questions
+        </h3>
+      </div>
+
+      <div class="space-y-4">
+        
+        <div class="faq-item border border-slate-200 rounded-2xl p-5 cursor-pointer hover:border-brand-300 transition" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900">
+            <span>Is TEACH2LEARN completely free to use?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </div>
+          <div class="faq-answer hidden mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Yes! TEACH2LEARN is created by and for engineering students. All core learning materials, hierarchical notes, video lectures, micro-reels, and peer mentorship features are 100% free with zero ads.
+          </div>
+        </div>
+
+        <div class="faq-item border border-slate-200 rounded-2xl p-5 cursor-pointer hover:border-brand-300 transition" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900">
+            <span>Why is the app distributed as a direct APK file?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </div>
+          <div class="faq-answer hidden mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Direct APK distribution allows students and university peers to instantly install and test the latest builds without waiting for store approval cycles. It works immediately on any Android phone.
+          </div>
+        </div>
+
+        <div class="faq-item border border-slate-200 rounded-2xl p-5 cursor-pointer hover:border-brand-300 transition" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900">
+            <span>Is it safe to install this APK on my personal device?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </div>
+          <div class="faq-answer hidden mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Absolutely. The APK is compiled directly from verified Kotlin source code using official Android SDK tools and Google Jetpack libraries. It requests zero invasive permissions.
+          </div>
+        </div>
+
+        <div class="faq-item border border-slate-200 rounded-2xl p-5 cursor-pointer hover:border-brand-300 transition" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900">
+            <span>Will my learning progress and XP be saved?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </div>
+          <div class="faq-answer hidden mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Yes. Every lecture watched, quiz completed, and peer session finished is automatically tracked in your user profile and stored securely in local state.
+          </div>
+        </div>
+
+        <div class="faq-item border border-slate-200 rounded-2xl p-5 cursor-pointer hover:border-brand-300 transition" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900">
+            <span>Can I also teach other students through the app?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
+          </div>
+          <div class="faq-answer hidden mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Yes! TEACH2LEARN is built around the "Feynman Technique" — teaching others is the fastest way to master a subject. You can register as a peer mentor, publish 60s micro-reels, and host live sessions.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bottom CTA Banner -->
+  <section class="py-16 bg-gradient-to-br from-slate-900 via-brand-950 to-slate-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <div class="w-14 h-14 mx-auto rounded-2xl bg-brand-600/30 border border-brand-400/40 flex items-center justify-center text-brand-300 mb-6 shadow-lg shadow-brand-500/20">
+        <i data-lucide="download" class="w-7 h-7"></i>
+      </div>
+
+      <h3 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight">
+        Ready to Master Your Engineering Courses?
+      </h3>
+      <p class="mt-3 text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+        Join hundreds of engineering students collaborating, teaching, and leveling up their technical skills together.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="teach2learn.apk" download="teach2learn.apk" onclick="trackDownload()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 text-sm font-extrabold text-slate-900 bg-white hover:bg-slate-100 rounded-2xl shadow-xl transition-all">
+          <i data-lucide="download" class="w-5 h-5 text-brand-600"></i>
+          <span>Download TEACH2LEARN (23 MB)</span>
+        </a>
+
+        <button onclick="copyDownloadLink()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700 rounded-2xl transition-all">
+          <i data-lucide="copy" class="w-4 h-4 text-slate-400"></i>
+          <span>Copy Download Link</span>
+        </button>
+      </div>
+
+      <p class="mt-6 text-[11px] text-slate-400">
+        Compatible with Android 8.0 Oreo and above &bull; 100% Free &bull; Open Peer Learning
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2.5">
+        <img src="app-icon.jpg" alt="TEACH2LEARN Icon" class="w-6 h-6 rounded-md object-cover" />
+        <span class="font-bold text-slate-800">TEACH2LEARN</span> &bull; <span>Learn by Teaching, Master by Sharing.</span>
+      </div>
+      <div>
+        Built with Google AI Studio &bull; Kotlin & Jetpack Compose
+      </div>
+    </div>
+  </footer>
+
+  <!-- QR Code Modal -->
+  <div id="qr-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-slate-200 text-center relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <button onclick="closeQrModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-4 border border-brand-100">
+        <i data-lucide="qr-code" class="w-6 h-6"></i>
+      </div>
+
+      <h4 class="text-lg font-bold text-slate-900">Scan to Install on Phone</h4>
+      <p class="text-xs text-slate-500 mt-1 mb-5">Point your Android phone camera at the QR code below to download the APK directly.</p>
+
+      <!-- QR Code Target Container -->
+      <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-center mx-auto w-56 h-56">
+        <div id="qrcode" class="flex items-center justify-center"></div>
+      </div>
+
+      <div class="mt-5 space-y-2">
+        <button onclick="copyDownloadLink()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition flex items-center justify-center gap-2">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span>Copy Direct Link</span>
+        </button>
+        <button onclick="closeQrModal()" class="w-full py-2 text-xs font-semibold text-slate-500 hover:text-slate-700">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Page Scripts -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Tab Switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md', 'shadow-brand-600/20');
+        btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+      });
+
+      const activeTab = document.getElementById(tabId);
+      if (activeTab) activeTab.classList.remove('hidden');
+
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+        activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md', 'shadow-brand-600/20');
+      }
+      lucide.createIcons();
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(el) {
+      const answer = el.querySelector('.faq-answer');
+      const icon = el.querySelector('i');
+      if (answer.classList.contains('hidden')) {
+        answer.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        answer.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // QR Code Modal
+    function openQrModal() {
+      const modal = document.getElementById('qr-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      generateQrCode();
+    }
+
+    function closeQrModal() {
+      const modal = document.getElementById('qr-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Generate Dynamic QR Code
+    let qrGenerated = false;
+    function generateQrCode() {
+      if (qrGenerated) return;
+      const qrContainer = document.getElementById('qrcode');
+      qrContainer.innerHTML = '';
+      
+      const apkUrl = window.location.href.split('#')[0].replace(/\/?$/, '/') + 'teach2learn.apk';
+
+      if (window.QRCode) {
+        new QRCode(qrContainer, {
+          text: apkUrl,
+          width: 180,
+          height: 180,
+          colorDark: "#1e1b4b",
+          colorLight: "#f8fafc",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+        qrGenerated = true;
+      } else {
+        // Fallback static display
+        qrContainer.innerHTML = '<div class="text-xs text-slate-500 font-medium">Link: ' + apkUrl + '</div>';
+      }
+    }
+
+    // Copy Download Link Helper
+    function copyDownloadLink() {
+      const apkUrl = window.location.href.split('#')[0].replace(/\/?$/, '/') + 'teach2learn.apk';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(apkUrl).then(() => {
+          showToast('Direct APK link copied to clipboard!');
+        });
+      } else {
+        showToast('Link: ' + apkUrl);
+      }
+    }
+
+    // Toast Notification
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toast-text');
+      text.innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    // Download Tracker Toast
+    function trackDownload() {
+      showToast('Starting teach2learn.apk download (23 MB)...');
+    }
+
+    // Auto-trigger download if URL contains ?download=true
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('download') === 'true') {
+        window.location.href = 'teach2learn.apk';
+        showToast('Automatic download initiated!');
+      }
+    });
+  </script>
+</body>
+</html>
+

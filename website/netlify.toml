@@ -1,0 +1,16 @@
+# Netlify configuration for TEACH2LEARN APK download site
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Ensure the APK is served with the correct Android MIME type for immediate download
+[[headers]]
+  for = "/teach2learn.apk"
+  [headers.values]
+    Content-Type = "application/vnd.android.package-archive"
+    Content-Disposition = "attachment; filename=\"teach2learn.apk\""
+    Cache-Control = "public, max-age=3600"

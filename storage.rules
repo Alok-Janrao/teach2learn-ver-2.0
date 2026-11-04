@@ -1,0 +1,47 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isSupportedVideo() {
+      return request.resource.contentType.matches('video/mp4')
+          || request.resource.contentType.matches('video/webm')
+          || request.resource.contentType.matches('video/quicktime')
+          || request.resource.contentType.matches('video/3gpp')
+          || request.resource.contentType.matches('video/.*');
+    }
+
+    function isSupportedImage() {
+      return request.resource.contentType.matches('image/jpeg')
+          || request.resource.contentType.matches('image/png')
+          || request.resource.contentType.matches('image/webp');
+    }
+
+    // Short Educational Videos storage path: shortVideos/{userId}/{videoId}.mp4
+    match /shortVideos/{userId}/{allPaths=**} {
+      // Anyone authenticated can stream / watch
+      allow read: if isAuthenticated();
+
+      // Only the authenticated teacher can upload their video (< 150MB, valid video format)
+      allow write: if isOwner(userId) 
+                   && request.resource.size < 150 * 1024 * 1024
+                   && (isSupportedVideo() || isSupportedImage());
+                   
+      allow delete: if isOwner(userId);
+    }
+
+    // Public educational thumbnails
+    match /thumbnails/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAuthenticated() && request.resource.size < 10 * 1024 * 1024 && isSupportedImage();
+    }
+  }
+}
